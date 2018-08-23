@@ -60,15 +60,17 @@ int main() {
 		}
 
 		for (int i = 0; i < code.size(); i++) {
-			int find = code[i].find(token);
+			int find = code[i].find(token); //계속 시간초과, find가 죤나 느린가??
+			int temp = code[i].length() - token.length() + 1;
+			
+			while(find < 0) {
+				temp = code[i].find(token.at(0), temp);
 
-			if (find < 0) {
-				for (int j = code[i].length() - 1; token.length() > code[i].length() - j; j--) {
-					if (Check(code[i], token, j, 0)) {
-						find = j;
-						break;
-					}
+				if (Check(code[i], token, temp, 0)) {
+					find = temp;
 				}
+
+				temp++;
 			}
 
 			if (flag) {
